@@ -161,7 +161,6 @@ const Add_doctor = () => {
                   />
                 </div>
 
-                {/* Address and About Doctor Fields */}
                 <div className="col-span-2">
                   <label className="block text-gray-700">Address</label>
                   <input

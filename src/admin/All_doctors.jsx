@@ -12,6 +12,7 @@ const All_doctors = () => {
 
   useEffect(() => {
     getHomeDoctors();
+  
   }, []);
 
   const getHomeDoctors = async () => {
@@ -28,17 +29,23 @@ const All_doctors = () => {
 
   const handleDeleteDoctor = async (doctorId) => {
     try {
+      console.log(`Attempting to delete doctor with ID: ${doctorId}`);
+      const token = sessionStorage.getItem('admin_token') || sessionStorage.getItem('token');
+      console.log('Token:', token);  // Log the token
       const result = await deleteDoctorAPI(doctorId);
+      console.log('Delete API Response:', result);
+  
       if (result.status === 200) {
         setHomeDoctors(homeDoctors.filter(doctor => doctor._id !== doctorId));  // Update state after deletion
         toast.success('Doctor deleted successfully');
       }
     } catch (err) {
-      console.log(err);
+      console.log('Error deleting doctor:', err.response ? err.response.data : err.message);
       toast.error('Failed to delete doctor. Please try again.');
     }
   };
-
+  
+  
   return (
     <>
       <Header_admin />

@@ -10,6 +10,8 @@ import pedia from '../assets/Pediatricians.svg';
 import DoctorCards from '../components/DoctorCards';
 import appo from '../assets/appointment_img.png';
 import { homeDoctorAPI } from '../services/allAPI';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Home = () => {
   const [homeDoctors, setHomeDoctors] = useState([]);
@@ -18,6 +20,8 @@ const Home = () => {
   console.log(homeDoctors);
 
   useEffect(() => {
+    AOS.init({ duration: 1200 });
+
     getHomeDoctors();
     if (sessionStorage.getItem("token")) {
       setIsLogin(true);
@@ -45,7 +49,9 @@ const Home = () => {
           <div className="col-lg-6 flex flex-col items-center justify-center text-center h-[450px] space-y-4 ps-5">
             <h2 className='text-white font-extrabold text-[54px]'>Book Appointment with Trusted Doctors</h2>
             {isLogin ? (
-              <Link to={'/doctors'} className='bg-white px-4 py-2 text-black font-semibold rounded-lg hover:bg-blue-600 hover:text-white hover:scale-105 transition-transform duration-200'>
+              <Link data-aos="fade-right"
+              data-aos-offset="300"
+              data-aos-easing="ease-in-sine"  to={'/doctors'} className='bg-white px-4 py-2 text-black font-semibold rounded-lg hover:bg-blue-600 hover:text-white hover:scale-105 transition-transform duration-200'>
                 Book appointment &nbsp; <i className="fa-solid fa-arrow-right"></i>
               </Link>
             ) : null}

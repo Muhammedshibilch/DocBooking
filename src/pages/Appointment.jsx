@@ -1,11 +1,10 @@
-// filepath: /frontend/src/pages/Appointment.jsx
 import React, { useState, useEffect } from 'react';
 import { RiVerifiedBadgeLine } from "react-icons/ri";
 import { useParams, useNavigate } from 'react-router-dom';
 import { singleDoctorAPI, createAppointmentAPI } from '../services/allAPI';
 import SERVER_BASE_URL from '../services/serverUrl';
 import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Import Toastify CSS
+import 'react-toastify/dist/ReactToastify.css'; 
 
 const Appointment = () => {
   const { _id } = useParams(); 
@@ -19,7 +18,6 @@ const Appointment = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
-  // Fetch doctor details
   useEffect(() => {
     const fetchDoctor = async () => {
       try {
@@ -34,7 +32,6 @@ const Appointment = () => {
     fetchDoctor();
   }, [_id]);
 
-  // Generate the week days for date selection
   useEffect(() => {
     const generateWeekDates = () => {
       const today = new Date();
@@ -79,18 +76,16 @@ const Appointment = () => {
       try {
         const result = await createAppointmentAPI(appointmentDetails);
         if (result.status === 201) {
-          // Show success toast
           toast.success('Appointment booked successfully!');
           navigate('/my-appointments');
+        } else {
+          toast.error('Failed to book appointment. Please try again.');
         }
       } catch (err) {
-        setErrorMessage('Failed to book appointment. Please try again.');
-        // Show error toast
         toast.error('Failed to book appointment. Please try again.');
-        console.error(err);
+        console.error('Error:', err);
       }
     } else {
-      setErrorMessage('Please select both a date and time for your appointment.');
       toast.error('Please select both a date and time.');
     }
   };
@@ -158,7 +153,7 @@ const Appointment = () => {
           </button>
         </div>
       </div>
-      <ToastContainer /> {/* Toast container for displaying notifications */}
+      <ToastContainer /> 
     </div>
   );
 };

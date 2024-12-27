@@ -15,11 +15,21 @@ const Auth = ({ insideRegister }) => {
   // Admin credentials
   const adminEmail = "admin@example.com";
   const adminPassword = "admin123";
+  const adminToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzZkMzc5M2UwMDFmNzEzNDkwMTBkYjUiLCJpYXQiOjE3MzUyMTA5MDl9.5G-86olOq4OG_BuGNY6oAdYoedEsq1BzA04adaOX5dY"; // Hard-coded token for admin
+
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+  }
 
   const register = async (e) => {
     e.preventDefault();
+    if (!validateEmail(userInput.email)) {
+      toast.error("Invalid email format");
+      return;
+    }
+
     if (userInput.username && userInput.password && userInput.email) {
-      // API call
       try {
         const result = await registerAPI(userInput);
         if (result.status === 200) {
@@ -43,8 +53,8 @@ const Auth = ({ insideRegister }) => {
   const login = async (e) => {
     e.preventDefault();
     if (userInput.password && userInput.email) {
-      // Check if the entered email and password match the admin credentials
       if (userInput.email === adminEmail && userInput.password === adminPassword) {
+        sessionStorage.setItem("admin_token", adminToken);
         toast.success("Admin login successful!");
         navigate("/add-doctor");
         return;

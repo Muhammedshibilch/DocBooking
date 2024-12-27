@@ -14,6 +14,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Auth from './pages/Auth';
 import Add_doctor from './admin/Add_doctor';
 import All_doctors from './admin/All_doctors';
+import All_appointment from './admin/All_appointment';
+import { ToastContainer } from 'react-bootstrap';
 
 const App = () => {
   const location = useLocation();
@@ -36,6 +38,7 @@ const App = () => {
           <Route path='/appointment/:_id' element={<Appointment />} />
           <Route path='/add-doctor' element={<Add_doctor />} />
           <Route path='/all-doctors' element={<All_doctors />} />
+          <Route path='/all-appointment' element={<All_appointment/>}/>
         </Routes>
         {!noHeaderFooterRoutes.includes(location.pathname) && <Footer />}
       </div>

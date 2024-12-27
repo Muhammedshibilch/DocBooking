@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 const Sidebar_admin = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // Function to toggle the sidebar on mobile
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
@@ -21,6 +20,10 @@ const Sidebar_admin = () => {
             {isSidebarOpen ? 'Close' : 'Open'}
           </button>
           <ul className="space-y-4 p-4">
+          <li className="flex items-center space-x-2 hover:bg-gray-100 p-2 rounded-lg">
+              <FaUsers size={24} />
+              <Link to={'/all-appointment'}><span className="text-sm lg:text-base">All Appointments</span></Link>
+            </li>
             <li className="flex items-center space-x-2 hover:bg-gray-100 p-2 rounded-lg">
               <FaUserPlus size={24} />
               <Link to={'/add-doctor'}><span className="text-sm lg:text-base">Add Doctor</span></Link>
@@ -33,7 +36,6 @@ const Sidebar_admin = () => {
         </div>
       </div>
 
-      {/* Overlay when sidebar is open (for mobile view) */}
       {isSidebarOpen && (
         <div
           className="lg:hidden fixed inset-0 bg-black opacity-50 z-5"
